@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+        />
+        <link rel="stylesheet" href="css/style.css" />
+        <title>Speed Typier</title>
+    </head>
+
+    <body>
+        <button id="settings-btn" class="settings-btn"><i class="fas fa-cog"></i></button>
+
+        <div id="settings" class="settings">
+            <form id="settings-form">
+                <div>
+                    <label for="difficulty">Difficulty</label>
+
+                    <select id="difficulty">
+                        <option value="easy" data-time="5">Easy</option>
+                        <option value="medium" data-time="3">Medium</option>
+                        <option value="hard" data-time="2">Hard</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <div class="container">
+            <h2>👩‍💻 Speed Typier 👨‍💻</h2>
+
+            <div class="game-progress">
+                <p class="time-container">Time left: <span id="time">10s</span></p>
+
+                <p class="score-container">Score: <span id="score">0</span></p>
+            </div>
+
+            <small>Type the following:</small>
+
+            <span id="word"></span>
+
+            <input type="text" id="text" autocomplete="off" placeholder="Type the word here..." />
+
+            <div id="end-game-container" class="end-game-container"></div>
+        </div>
+
+        <script src="./app.js"></script>
+    </body>
+</html>
