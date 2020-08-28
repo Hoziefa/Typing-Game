@@ -10,7 +10,7 @@
 
 
 :root {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 @media screen and (max-width: 600px) {
@@ -255,7 +255,7 @@ button.settings-btn:hover::before, button.settings-btn:hover::after {
   border-radius: 5px;
   -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
           box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-  padding: 5rem 2rem;
+  padding: 2rem;
   width: 50vw;
 }
 

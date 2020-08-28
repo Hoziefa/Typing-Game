@@ -10,50 +10,48 @@ const elements = {
     difficultySelect: document.getElementById("difficulty"),
 };
 
-const words = [
-    "sigh",
-    "tense",
-    "airplane",
-    "ball",
-    "pies",
-    "juice",
-    "warlike",
-    "bad",
-    "north",
-    "dependent",
-    "steer",
-    "silver",
-    "highfalutin",
-    "superficial",
-    "quince",
-    "eight",
-    "feeble",
-    "admit",
-    "drag",
-    "loving",
-    "programming",
-    "developer",
-    "javascript",
-];
+const state = {
+    words: [
+        "sigh",
+        "tense",
+        "airplane",
+        "ball",
+        "pies",
+        "juice",
+        "warlike",
+        "bad",
+        "north",
+        "dependent",
+        "steer",
+        "silver",
+        "highfalutin",
+        "superficial",
+        "quince",
+        "eight",
+        "feeble",
+        "admit",
+        "drag",
+        "loving",
+    ],
+    randomWord: "",
+    score: 0,
+    time: 10,
+    interval: null,
+};
 
-let randomWord;
-
-let score = 0;
-
-let time = 10;
+const setState = (newState = {}, prevState = state) => Object.assign(prevState, newState);
 
 const getRandomWord = arr => arr[Math.floor(Math.random() * arr.length)];
 
-const displayWord = _ => {
-    randomWord = getRandomWord(words);
+const displayWord = () => {
+    setState({ randomWord: getRandomWord(state.words) });
 
-    elements.word.textContent = randomWord;
+    elements.word.textContent = state.randomWord;
 };
-displayWord();
 
-const updateScore = _ => {
-    score++;
-    elements.domScore.textContent = score;
+const updateScore = () => {
+    setState({ score: state.score + 1 });
+    elements.domScore.textContent = state.score;
 };
 
 const gameOver = score => {
@@ -69,31 +67,32 @@ const gameOver = score => {
     elements.domEndgame.classList.add("show");
 };
 
-let interval;
 const updateTime = (timeVal = 0) => {
-    time += timeVal;
+    timeVal && setState({ time: state.time + timeVal });
 
-    if (time > 0) time--;
-    else {
-        clearInterval(interval);
-        gameOver(score);
-    }
+    if (state.time <= 0) {
+        clearInterval(state.interval);
+        gameOver(state.score);
+    } else setState({ time: state.time - 1 });
 
-    elements.domTime.textContent = `${time}s`;
+    elements.domTime.textContent = `${state.time}s`;
 };
-interval = setInterval(updateTime, 1000);
 
 elements.textInput.addEventListener("input", ({ currentTarget: input }) => {
     let enteredWord = input.value.trim().toLowerCase();
 
     let { time: timeVal } = elements.difficultySelect[elements.difficultySelect.selectedIndex].dataset;
 
-    if (enteredWord === randomWord && time) {
-        updateTime(+timeVal);
+    if (enteredWord === state.randomWord && state.time) {
+        updateTime(+timeVal + 1);
         updateScore();
         displayWord();
         input.value = "";
     }
 });
 
-elements.settingsBtn.addEventListener("click", _ => elements.settings.classList.toggle("show-settings"));
+elements.settingsBtn.addEventListener("click", () => elements.settings.classList.toggle("show-settings"));
+
+displayWord();
+
+setState({ interval: setInterval(updateTime, 1000) });
