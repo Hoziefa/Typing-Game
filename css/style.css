@@ -178,7 +178,7 @@ button.settings-btn::before {
   right: -22px;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
-  border-width: 22px 20px;
+  border-width: 19px 20px;
   border-style: solid;
   border-color: transparent white transparent transparent;
 }
